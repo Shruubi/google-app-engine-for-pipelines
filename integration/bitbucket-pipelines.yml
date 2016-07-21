@@ -1,0 +1,29 @@
+# Integrate Bitbucket pipelines with Google App Engine
+# Copyright (C) 2016  Damon Swayn <me@shruubi.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# use googles supplied cloud-sdk image
+image: google/cloud-sdk
+
+pipelines:
+  branches:
+    master:
+      - step:
+          script:
+            - gcloud auth activate-service-account <service_acct_email_addr>@appspot.gserviceaccount.com --key-file <downloaded_json_file>.json
+            - gcloud config set app/use_gsutil true # this is required to fix a bug in gcloud, not sure if this is fixed yet...
+            - gcloud --project=<your_project_id> preview app deploy -q app.yaml
+            - gcloud --project=<your_project_id> preview app deploy -q cron.yaml # remove this if you do not have any cron tasks
+            - gcloud --project=<your_project_id> preview app deploy -q queue.yaml # remove this if you do not have any queues
