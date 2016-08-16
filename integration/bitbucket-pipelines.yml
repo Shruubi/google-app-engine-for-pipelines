@@ -24,6 +24,6 @@ pipelines:
           script:
             - gcloud auth activate-service-account <service_acct_email_addr>@appspot.gserviceaccount.com --key-file <downloaded_json_file>.json
             - gcloud config set app/use_gsutil true # this is required to fix a bug in gcloud, not sure if this is fixed yet...
-            - gcloud --project=<your_project_id> preview app deploy -q app.yaml
-            - gcloud --project=<your_project_id> preview app deploy -q cron.yaml # remove this if you do not have any cron tasks
-            - gcloud --project=<your_project_id> preview app deploy -q queue.yaml # remove this if you do not have any queues
+            - gcloud --project=<your_project_id> app deploy -q app.yaml
+            - gcloud --project=<your_project_id> app deploy -q cron.yaml # remove this if you do not have any cron tasks
+            - gcloud --project=<your_project_id> app deploy -q queue.yaml # remove this if you do not have any queues
