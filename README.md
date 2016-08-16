@@ -1,5 +1,4 @@
 # gcloud-pipelines - Google App Engine Integration for Bitbucket Pipelines
---------------------------------------------------------------------------
 
 One of the more frustrating things about using Google App Engine is the lack
 of good CI/CD tools available that not only integrate with App Engine, but
